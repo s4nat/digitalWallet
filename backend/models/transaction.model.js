@@ -19,7 +19,7 @@ module.exports = (sequelize, Sequelize) => {
         status: {
             type: Sequelize.INTEGER
         },
-        created_at: {
+        timestamp: {
             type: Sequelize.DATE
         },
         category: {
