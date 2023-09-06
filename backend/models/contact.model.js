@@ -6,5 +6,6 @@ module.exports = (sequelize, Sequelize) => {
         friend_id: {
             type: Sequelize.INTEGER
         }
-    })
+    },
+    {freezeTableName: true})
 };

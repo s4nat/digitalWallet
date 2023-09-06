@@ -16,5 +16,6 @@ module.exports = (sequelize, Sequelize) => {
         balance: {
             type: Sequelize.FLOAT
         }
-    })
+    },
+    {freezeTableName: true})
 };

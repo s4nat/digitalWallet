@@ -28,5 +28,7 @@ module.exports = (sequelize, Sequelize) => {
         reqsend: {
             type: Sequelize.INTEGER
         }
-    })
+    },
+        {freezeTableName: true}
+    )
 };
