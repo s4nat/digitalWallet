@@ -1,6 +1,7 @@
 const express = require("express");
 const bodyParser = require("body-parser");
 const cors = require("cors");
+const db = require("./models");
 
 const app = express();
 
@@ -20,6 +21,22 @@ app.use(express.urlencoded({ extended: true }));
 app.get("/", (req, res) => {
     res.json({ message: "Welcome to Brown Munde Digital Wallet." });
 });
+
+// Checking for connection
+try {
+    db.sequelize.authenticate();
+    console.log('Connection has been established successfully.');
+} catch (error) {
+    console.error('Unable to connect to the database:', error);
+}
+
+//Syncing the database
+db.sequelize.sync({ force: true }).then(
+    () => {
+        console.log('Synced successfully');
+    }).catch((err) => {
+        console.log('Error connecting to database', err);
+    });
 
 // set port, listen for requests
 const PORT = process.env.PORT || 8080;
