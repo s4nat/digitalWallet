@@ -10,9 +10,6 @@ module.exports = (sequelize, Sequelize) => {
         password: {
             type: Sequelize.STRING
         },
-        salt: {
-            type: Sequelize.STRING
-        },
         balance: {
             type: Sequelize.FLOAT
         }
