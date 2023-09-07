@@ -7,12 +7,10 @@ module.exports = (sequelize, Sequelize) => {
         },
         from_id: {
             type: Sequelize.INTEGER,
-            primaryKey: true,
             allowNull: false
         },
         to_id: {
             type: Sequelize.INTEGER,
-            primaryKey: true,
             allowNull: false
         },
         amount: {
