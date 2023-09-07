@@ -2,7 +2,8 @@ module.exports = (sequelize, Sequelize) => {
     const Transaction = sequelize.define("transactions", {
         request_id: {
             type: Sequelize.INTEGER,
-            primaryKey: true
+            primaryKey: true,
+            autoIncrement: true
         },
         from_id: {
             type: Sequelize.INTEGER,
