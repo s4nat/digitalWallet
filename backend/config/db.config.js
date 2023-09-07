@@ -3,7 +3,7 @@ module.exports = {
     HOST: process.env.HOST || "localhost",
     USER: process.env.USER || "postgres",
     PASSWORD: process.env.POSTGRES_PASSWORD,
-    DB: "wallet_tt",
+    DB: "verceldb",
     dialect: "postgres",
     pool: {
       max: 5,

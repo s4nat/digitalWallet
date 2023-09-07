@@ -5,28 +5,26 @@ module.exports = (sequelize, Sequelize) => {
             primaryKey: true
         },
         from_id: {
-            type: Sequelize.INTEGER
+            type: Sequelize.INTEGER,
+            primaryKey: true,
+            allowNull: false
         },
         to_id: {
-            type: Sequelize.INTEGER
+            type: Sequelize.INTEGER,
+            primaryKey: true,
+            allowNull: false
         },
         amount: {
-            type: Sequelize.FLOAT
-        },
-        reason: {
-            type: Sequelize.STRING
+            type: Sequelize.FLOAT,
+            allowNull: false
         },
         status: {
-            type: Sequelize.INTEGER
+            type: Sequelize.INTEGER,
+            allowNull: false
         },
         timestamp: {
-            type: Sequelize.DATE
-        },
-        category: {
-            type: Sequelize.STRING
-        },
-        reqsend: {
-            type: Sequelize.INTEGER
+            type: Sequelize.DATE,
+            allowNull: false
         }
     },
         {freezeTableName: true}
