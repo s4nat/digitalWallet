@@ -6,7 +6,7 @@ const db = require("./models");
 const app = express();
 
 var corsOptions = {
-    origin: "http://localhost:8081"
+  origin: "http://localhost:8081",
 };
 
 app.use(cors(corsOptions));
@@ -16,30 +16,32 @@ app.use(express.json());
 
 // parse requests of content-type - application/x-www-form-urlencoded
 app.use(express.urlencoded({ extended: true }));
-
 // simple route
 app.get("/", (req, res) => {
-    res.json({ message: "Welcome to Brown Munde Digital Wallet." });
+  res.json({ message: "Welcome to Brown Munde Digital Wallet." });
 });
 
 // Checking for connection
 try {
-    db.sequelize.authenticate();
-    console.log('Connection has been established successfully.');
+  db.sequelize.authenticate();
+  console.log("Connection has been established successfully.");
 } catch (error) {
-    console.error('Unable to connect to the database:', error);
+  console.error("Unable to connect to the database:", error);
 }
 
 //Syncing the database
-db.sequelize.sync({ force: true }).then(
-    () => {
-        console.log('Synced successfully');
-    }).catch((err) => {
-        console.log('Error connecting to database', err);
-    });
-
+db.sequelize
+  .sync({ force: true })
+  .then(() => {
+    console.log("Synced successfully");
+  })
+  .catch((err) => {
+    console.log("Error connecting to database", err);
+  });
+require("./routes/user.routes")(app);
+require("./routes/transaction.routes")(app);
 // set port, listen for requests
 const PORT = process.env.PORT || 8080;
 app.listen(PORT, () => {
-    console.log(`Server is running on port ${PORT}.`);
+  console.log(`Server is running on port ${PORT}.`);
 });
