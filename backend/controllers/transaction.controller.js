@@ -4,6 +4,7 @@ const Transaction = db.Transaction;
 const User = db.User;
 const sequelize = db.sequelize;
 const axios = require("axios");
+const Op = db.Sequelize.Op;
 const stripe = require("stripe")(process.env.STRIPE_API_KEY);
 
 exports.createTransaction = async (req, res) => {
@@ -132,12 +133,42 @@ exports.findAll = async (req, res) => {
     });
     return;
   }
+  if (!req.body.user_id) {
+    res.status(400).send({
+      message: "No user ID!",
+    });
+    return;
+  }
+  const user = await User.findOne({
+    where: { user_id: req.body.user_id },
+  });
+  if (!user) {
+    res.status(400).send({
+      message: "User not found!",
+    });
+    return;
+  }
   // Validate request
   try {
-    const Transaction = await Transaction.findAll();
+    const transaction_history = await Transaction.findAll({
+      where: {
+        [Op.or]: [
+          {
+            to_id: {
+              [Op.eq]: req.body.user_id,
+            },
+          },
+          {
+            from_id: {
+              [Op.eq]: req.body.user_id,
+            },
+          },
+        ],
+      },
+    });
     res
       .status(200)
-      .json({ message: "All Transactions", Transaction: Transaction });
+      .json({ message: "All Transactions", Transaction: transaction_history });
   } catch (error) {
     console.error("Error while finding Transaction:", error);
     res.status(500).json({ error: "Internal Server Error" });
