@@ -2,31 +2,28 @@ module.exports = (sequelize, Sequelize) => {
     const Transaction = sequelize.define("transactions", {
         request_id: {
             type: Sequelize.INTEGER,
-            primaryKey: true
+            primaryKey: true,
+            autoIncrement: true
         },
         from_id: {
-            type: Sequelize.INTEGER
+            type: Sequelize.INTEGER,
+            allowNull: false
         },
         to_id: {
-            type: Sequelize.INTEGER
+            type: Sequelize.INTEGER,
+            allowNull: false
         },
         amount: {
-            type: Sequelize.FLOAT
-        },
-        reason: {
-            type: Sequelize.STRING
+            type: Sequelize.FLOAT,
+            allowNull: false
         },
         status: {
-            type: Sequelize.INTEGER
+            type: Sequelize.INTEGER,
+            allowNull: false
         },
         timestamp: {
-            type: Sequelize.DATE
-        },
-        category: {
-            type: Sequelize.STRING
-        },
-        reqsend: {
-            type: Sequelize.INTEGER
+            type: Sequelize.DATE,
+            allowNull: false
         }
     },
         {freezeTableName: true}
