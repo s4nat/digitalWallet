@@ -4,6 +4,7 @@ const User = db.User;
 const sequelize = db.sequelize;
 const Op = db.Sequelize.Op;
 const axios = require("axios");
+const crypto = require("crypto");
 
 exports.createUser = async (req, res) => {
   // Authenticate Request
@@ -32,12 +33,18 @@ exports.createUser = async (req, res) => {
       [Op.or]: [
         {
           phone: {
-            [Op.eq]: req.body.phone,
+            [Op.eq]: crypto
+              .createHash("sha256")
+              .update(req.body.phone)
+              .digest("hex"),
           },
         },
         {
           email: {
-            [Op.eq]: req.body.email,
+            [Op.eq]: crypto
+              .createHash("sha256")
+              .update(req.body.email)
+              .digest("hex"),
           },
         },
       ],
@@ -68,7 +75,7 @@ exports.createUser = async (req, res) => {
       .status(201)
       .json({ message: "User created successfully", user: result });
   } catch (error) {
-    console.error("Error creating user:", erroer);
+    console.error("Error creating user:", error);
     res.status(500).json({ error: "Internal Server Error" });
   }
 };
@@ -88,7 +95,7 @@ exports.findUserByCondition = async (req, res) => {
     });
     return;
   }
-  const phone = req.query.phone || 0;
+  const phone = req.query.phone || "0";
   const email = req.query.email || " ";
   try {
     const user = await User.findAll({
@@ -96,12 +103,15 @@ exports.findUserByCondition = async (req, res) => {
         [Op.or]: [
           {
             phone: {
-              [Op.eq]: phone,
+              [Op.eq]: crypto
+                .createHash("sha256")
+                .update(phone.toString())
+                .digest("hex"),
             },
           },
           {
             email: {
-              [Op.eq]: email,
+              [Op.eq]: crypto.createHash("sha256").update(email).digest("hex"),
             },
           },
         ],

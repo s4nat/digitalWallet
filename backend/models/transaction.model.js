@@ -1,6 +1,6 @@
 module.exports = (sequelize, Sequelize) => {
   const Transaction = sequelize.define(
-    "Transactions",
+    "transactions",
     {
       request_id: {
         type: Sequelize.INTEGER,
