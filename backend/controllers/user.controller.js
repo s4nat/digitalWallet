@@ -155,7 +155,7 @@ exports.updateUserBalance = async (req, res) => {
         );
         return updatedRows;
       });
-      const url = `localhost:3000/pages/api/webhooks/${user.user_id}`;
+      const url = `http://localhost:3000/api/webhooks/${user.user_id}`;
       const data = {
         user: user_id,
         amount: amount,
