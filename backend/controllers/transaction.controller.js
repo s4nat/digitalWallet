@@ -97,6 +97,8 @@ exports.createTransaction = async (req, res) => {
   const new_transaction = {
     to_id: to_id,
     from_id: from_id,
+    from_name: userSender.firstName,
+    to_name: userReceiver.firstName,
     amount: amount,
     status: status_val,
   };

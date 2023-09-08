@@ -11,8 +11,16 @@ module.exports = (sequelize, Sequelize) => {
         type: Sequelize.INTEGER,
         allowNull: false,
       },
+      from_name: {
+        type: Sequelize.STRING,
+        allowNull: false,
+      },
       to_id: {
         type: Sequelize.INTEGER,
+        allowNull: false,
+      },
+      to_name: {
+        type: Sequelize.STRING,
         allowNull: false,
       },
       amount: {
