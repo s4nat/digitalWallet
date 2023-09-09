@@ -44,7 +44,9 @@ While developing ByteWallet, we encountered several challenges:
 
 - **Seamless User Experience**: We're proud of the user experience we've delivered with ByteWallet. From registration to making transactions, we've prioritized user-friendliness at every step.
 
-- **Robust Security**: ByteWallet is built with a strong emphasis on security. We've implemented industry best practices to safeguard user data.
+- **Robust Security**: ByteWallet is built with a strong emphasis on security.
+    - All URLs are protected and redirects to sign in if the user tries accessing pages which require sign in.
+    - User data is encrypted before it is stored in database.
 
 - **Stripe Integration**: Our integration with Stripe for top-ups provides a reliable and secure way for users to add funds to their wallets.
 
