@@ -6,7 +6,7 @@ const db = require("./models");
 const app = express();
 
 var corsOptions = {
-  origin: "http://localhost:3000",
+  origin: "https://digital-wallet-frontend-six.vercel.app/",
 };
 
 app.use(cors(corsOptions));
