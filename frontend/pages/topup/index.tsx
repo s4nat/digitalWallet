@@ -20,15 +20,11 @@ export default withPageAuthRequired(
                         Add more fuel to your wallet.
                     </div>
                 </div>
-                <div className='w-1/2 flex justify-center pt-20'>
-                    <div className='w-1/2 border border-[#635dff] p-10 rounded-xl'>
-                        <div className="flex font-sans text-[25px] font-medium text-[#635dff]">
-                            Top Up Now.
-                        </div>
+                <div className='w-1/2 flex items-center justify-center border border-[#635dff] rounded-xl'>
                         <Form.Root className="w-[260px]">
                         <Form.Field className="grid mb-[50px]" name="topup-amount">
                         <div className="flex items-baseline justify-between pt-10">
-                            
+                            <Form.Label className="text-[15px] font-medium leading-[35px] text-white">Amount</Form.Label>
                             <Form.Message className="text-[13px] text-white opacity-[0.8]" match="valueMissing">
                             Please Enter the Top Up Amount
                             </Form.Message>
@@ -55,7 +51,7 @@ export default withPageAuthRequired(
                         </Form.Submit>
                     </Form.Root>
                 </div>
-                </div>
+                
                 
             </div>)}
             {
