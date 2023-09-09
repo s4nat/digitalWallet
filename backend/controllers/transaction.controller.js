@@ -100,8 +100,8 @@ exports.createTransaction = async (req, res) => {
   const new_transaction = {
     to_id: to_id,
     from_id: from_id,
-    from_name: userSender.firstName,
-    to_name: userReceiver.firstName,
+    from_name: userSender.name,
+    to_name: userReceiver.name,
     amount: amount,
     status: status_val,
   };
@@ -263,7 +263,7 @@ exports.stripeWebhook = async (req, res) => {
         to_id: user.user_id,
         from_id: 0,
         from_name: "Stripe",
-        to_name: user.firstName,
+        to_name: user.name,
         amount: data.object.amount_total / 100,
         status: 1,
       };

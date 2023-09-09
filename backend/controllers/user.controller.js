@@ -16,10 +16,8 @@ exports.createUser = async (req, res) => {
   }
   // Validate request
   if (
-    !req.body.firstName ||
-    !req.body.lastName ||
+    !req.body.name ||
     !req.body.password ||
-    !req.body.phone ||
     !req.body.email
   ) {
     res.status(400).send({
@@ -31,14 +29,6 @@ exports.createUser = async (req, res) => {
   const existingUser = await User.findAll({
     where: {
       [Op.or]: [
-        {
-          phone: {
-            [Op.eq]: crypto
-              .createHash("sha256")
-              .update(req.body.phone)
-              .digest("hex"),
-          },
-        },
         {
           email: {
             [Op.eq]: req.body.email,
@@ -55,10 +45,8 @@ exports.createUser = async (req, res) => {
   }
   // Create a User
   const user = {
-    firstName: req.body.firstName,
-    lastName: req.body.lastName,
+    name: req.body.name,
     password: req.body.password,
-    phone: req.body.phone,
     balance: 0,
     email: req.body.email,
   };
@@ -86,26 +74,17 @@ exports.findUserByCondition = async (req, res) => {
     return;
   }
   // Validate request
-  if (!req.query.phone && !req.query.email) {
+  if (!req.query.email) {
     res.status(400).send({
-      message: "Missing Phone Number or Email!",
+      message: "Missing email!",
     });
     return;
   }
-  const phone = req.query.phone || "0";
   const email = req.query.email || " ";
   try {
     const user = await User.findAll({
       where: {
         [Op.or]: [
-          {
-            phone: {
-              [Op.eq]: crypto
-                .createHash("sha256")
-                .update(phone.toString())
-                .digest("hex"),
-            },
-          },
           {
             email: {
               [Op.eq]: email,

@@ -12,45 +12,24 @@ module.exports = (sequelize, Sequelize) => {
         allowNull: false,
         autoIncrement: true,
       },
-      firstName: {
+      name: {
         type: Sequelize.STRING,
         allowNull: false,
         set(value) {
-          const encryptedFirstName = CryptoJS.AES.encrypt(
+          const encryptedName = CryptoJS.AES.encrypt(
             value,
             process.env.ENCRYPTION_KEY
           ).toString();
-          this.setDataValue("firstName", encryptedFirstName);
+          this.setDataValue("firstName", encryptedName);
         },
         get() {
-          const encryptedFirstName = this.getDataValue("firstName");
-          if (encryptedFirstName) {
-            const decryptedFirstName = CryptoJS.AES.decrypt(
-              encryptedFirstName,
+          const encryptedName = this.getDataValue("firstName");
+          if (encryptedName) {
+            const decryptedName = CryptoJS.AES.decrypt(
+              encryptedName,
               process.env.ENCRYPTION_KEY
             ).toString(CryptoJS.enc.Utf8);
-            return decryptedFirstName;
-          }
-          return null;
-        },
-      },
-      lastName: {
-        type: Sequelize.STRING,
-        set(value) {
-          const encryptedLastName = CryptoJS.AES.encrypt(
-            value,
-            process.env.ENCRYPTION_KEY
-          ).toString();
-          this.setDataValue("lastName", encryptedLastName);
-        },
-        get() {
-          const encryptedLastName = this.getDataValue("lastName");
-          if (encryptedLastName) {
-            const decryptedLastName = CryptoJS.AES.decrypt(
-              encryptedLastName,
-              process.env.ENCRYPTION_KEY
-            ).toString(CryptoJS.enc.Utf8);
-            return decryptedLastName;
+            return decryptedName;
           }
           return null;
         },
@@ -58,18 +37,6 @@ module.exports = (sequelize, Sequelize) => {
       balance: {
         type: Sequelize.FLOAT,
         allowNull: false,
-      },
-      phone: {
-        type: Sequelize.STRING,
-        unique: true,
-        allowNull: false,
-        set(value) {
-          const hashedPhone = crypto
-            .createHash("sha256")
-            .update(value)
-            .digest("hex");
-          this.setDataValue("phone", hashedPhone);
-        },
       },
       email: {
         type: Sequelize.STRING,
