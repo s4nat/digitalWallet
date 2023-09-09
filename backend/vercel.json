@@ -2,14 +2,22 @@
     "version": 2,
     "builds": [
       {
-        "src": "./server.js", 
+        "src": "server.js", 
         "use": "@vercel/node"
       }
     ],
     "routes": [
       {
         "src": "/(.*)",
-        "dest": "/"
+        "dest": "server.js"
+      },
+      {
+        "src": "/digiwallet/transaction/",
+        "dest": "transaction.routes.js"
+      },
+      {
+        "src": "/digiwallet/user/",
+        "dest": "user.routes.js"
       }
     ]
   }
