@@ -48,7 +48,7 @@ export default withPageAuthRequired(
                     if (response.statusText === "OK") {
                         //const body = await response.json()
                         // window.location.href = response.data.url; // vercel not redirecting
-                        redirect("google.com");
+                        redirect(response.data.url);
                         //console.log("success", "Booking Sucessful!");
                         //navigate("/");
                     }
