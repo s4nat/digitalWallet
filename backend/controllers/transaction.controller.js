@@ -53,7 +53,7 @@ exports.createTransaction = async (req, res) => {
   if (amount > userSender.balance) {
     status_val = 0;
   } else {
-    const url = "http://localhost:8080/digiwallet/user/updatebalance";
+    const url = "https://digital-wallet-plum.vercel.app/digiwallet/user/updatebalance";
     const dataSender = {
       email: from_email,
       amount: -amount,
@@ -181,12 +181,12 @@ exports.findAll = async (req, res) => {
 };
 
 exports.topupTransaction = async (req, res) => {
-  if (req.header("Authorization") != process.env.API_KEY) {
-    res.status(401).send({
-      message: "Unauthorised Request!",
-    });
-    return;
-  }
+  // if (req.header("Authorization") != process.env.API_KEY) {
+  //   res.status(401).send({
+  //     message: "Unauthorised Request!",
+  //   });
+  //   return;
+  // }
   if (!req.query.email || !req.query.amount) {
     res.status(400).send({
       message: "Invalid/Missing request object",
@@ -218,8 +218,7 @@ exports.topupTransaction = async (req, res) => {
     success_url: `http://localhost:3000/success`,
     cancel_url: `http://localhost:3000/failure`,
   });
-
-  res.redirect(303, session.url);
+  res.json({ url: session.url })
 };
 
 exports.stripeWebhook = async (req, res) => {
@@ -235,7 +234,7 @@ exports.stripeWebhook = async (req, res) => {
       },
     });
     if (user) {
-      const url = "http://localhost:8080/digiwallet/user/updatebalance";
+      const url = "https://digital-wallet-plum.vercel.app/digiwallet/user/updatebalance";
       const dataUser = {
         email: user.email,
         amount: data.object.amount_total / 100,
