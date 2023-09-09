@@ -1,7 +1,14 @@
+
 import Link from "next/link";
 import { FaCookieBite } from "react-icons/fa";
 
-export function Navbar() {
+type HeaderProps = {
+  user?: any
+  loading: boolean
+}
+
+export default function Navbar(props:HeaderProps) {
+  
   return (
     <nav>
       <div className="flex justify-between bg-[#000000]">
@@ -21,9 +28,16 @@ export function Navbar() {
           </div>
         </div>
         <div className="flex p-[15px] justify-end">
-          <div className="flex rounded-3xl hover:border-[2px] border-transparent py-2 px-5 hover:bg-[#635dff] font-sans text-base font-medium text-[#ffffff]">
-            <Link href="/api/auth/login">Sign In</Link>
-          </div>
+          {props.user && !props.loading &&(
+            <div className="flex rounded-3xl hover:border-[2px] border-transparent py-2 px-5 hover:bg-[#635dff] font-sans text-base font-medium text-[#ffffff]">
+              <Link href="/api/auth/logout">Sign Out</Link>
+            </div>
+          )}
+          {!props.user && (
+            <div className="flex rounded-3xl hover:border-[2px] border-transparent py-2 px-5 hover:bg-[#635dff] font-sans text-base font-medium text-[#ffffff]">
+              <Link href="/api/auth/login">Sign In</Link>
+            </div>
+          )}
         </div>
       </div>
     </nav>
