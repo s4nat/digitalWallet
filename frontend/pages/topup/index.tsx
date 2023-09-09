@@ -4,7 +4,7 @@ import {BiSolidCookie} from 'react-icons/bi'
 
 export default function topup(){
     return(
-        <main className="min-h-screen flex-col bg-[#1e212a] gap-y-1">
+        <main className="min-h-screen flex-col bg-black gap-y-1">
             <div className="flex p-20">
             {/* <div className= "bg-[#1e212a] flex items-center justify-center h-screen"> */}
                 <div className='w-1/2 p-5'>
@@ -16,7 +16,7 @@ export default function topup(){
                     </div>
                 </div>
                 <div className='w-1/2 flex justify-center pt-20'>
-                    <div className='w-3/5 border border-[#635dff] p-10 rounded-xl'>
+                    <div className='w-1/2 border border-[#635dff] p-10 rounded-xl'>
                         <div className="flex font-sans text-[25px] font-medium text-[#635dff]">
                             Top Up Now.
                         </div>

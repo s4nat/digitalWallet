@@ -2,7 +2,7 @@ import React from 'react';
 
 export default function fail() {
     return (
-    <div className="flex justify-center items-center h-screen bg-[#1e212a]">
+    <div className="flex justify-center items-center h-screen bg-black">
     <div className="flex flex-col justify-center items-center">
     <div className="mx-auto flex items-center justify-center h-12 w-12 rounded-full bg-red-100">
         <svg
