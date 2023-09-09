@@ -231,7 +231,7 @@ exports.stripeWebhook = async (req, res) => {
   if (eventType === "checkout.session.completed") {
     const user = await User.findOne({
       where: {
-        email: "nvisshal1980@gmail.com",
+        email: data.object.customer_email,
       },
     });
     if (user) {
