@@ -215,8 +215,8 @@ exports.topupTransaction = async (req, res) => {
       },
     ],
     mode: "payment",
-    success_url: `http://localhost:3000/success`,
-    cancel_url: `http://localhost:3000/failure`,
+    success_url: `https://digital-wallet-frontend-six.vercel.app/success`,
+    cancel_url: `https://digital-wallet-frontend-six.vercel.app/failure`,
   });
   res.json({ url: session.url })
 };
