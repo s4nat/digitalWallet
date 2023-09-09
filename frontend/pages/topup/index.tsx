@@ -5,6 +5,7 @@ import { useUser, withPageAuthRequired } from '@auth0/nextjs-auth0/client';
 import Navbar from '../components/Navbar';
 import Link from 'next/link';
 import axios from 'axios';
+import { redirect } from 'next/navigation';
 
 export default withPageAuthRequired(
     function Topup() {
@@ -46,7 +47,8 @@ export default withPageAuthRequired(
                 .then(async function (response) {
                     if (response.statusText === "OK") {
                         //const body = await response.json()
-                        window.location.href = response.data.url;
+                        // window.location.href = response.data.url;
+                        redirect(response.data.url);
                         //console.log("success", "Booking Sucessful!");
                         //navigate("/");
                     }
