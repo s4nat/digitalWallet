@@ -8,10 +8,15 @@ import axios from 'axios';
 import { request } from 'http';
 import { url } from 'inspector';
 
+interface formValues {
+    sendAmount: number,
+    email: string
+  }
+
 export default withPageAuthRequired(
     function SendMoney() {
         const { user, isLoading } = useUser();
-        const [values, setValues] = useState();
+        const [values, setValues] = useState<formValues | null>();
         const headers = { Authorization: "changeme" }
 
         const data = {
