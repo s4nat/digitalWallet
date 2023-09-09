@@ -1,4 +1,5 @@
 <img src="/images/bytewallet_logo.png">
+
 # ByteWallet
 
 ByteWallet is a comprehensive digital wallet solution that combines the simplicity of Next.js for frontend development, robust authentication mechanisms for security, Node.js Express for backend functionality, and Stripe for easy and secure top-ups. Here's what ByteWallet can do:
