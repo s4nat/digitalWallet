@@ -1,10 +1,14 @@
 import React from 'react';
 import * as Form from '@radix-ui/react-form';
 import {BiSolidCookie} from 'react-icons/bi'
+import { useUser } from '@auth0/nextjs-auth0/client';
+import Navbar from '../components/Navbar';
 
-export default function topup(){
+export default function Topup(){
+    const {user, isLoading} = useUser();
     return(
         <main className="min-h-screen flex-col bg-black gap-y-1">
+            <Navbar user={user} loading={isLoading}/>
             <div className="flex p-20">
             {/* <div className= "bg-[#1e212a] flex items-center justify-center h-screen"> */}
                 <div className='w-1/2 p-5'>

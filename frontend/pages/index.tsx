@@ -8,8 +8,9 @@ import Navbar from './components/Navbar'
 export default function Home() {
   const {user, isLoading} = useUser();
   return (
-    <main className="h-screen flex-col  flex items-center bg-[#000000]">
+    <main className="h-screen flex-col flex bg-[#000000]">
       <Navbar user={user} loading={isLoading}/>
+      <div className='flex justify-center'>
       <div className="flex items-center p-10">
         <div className="pl-10 pt-20">
           <div className="pl-20 flex font-sans text-[65px] font-medium text-[#635dff]">
@@ -32,6 +33,8 @@ export default function Home() {
           </div>
         </div>
       </div>
+      </div>
+      
     </main>
   )
 }

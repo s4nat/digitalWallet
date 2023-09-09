@@ -24,7 +24,7 @@ export default function Navbar(props:HeaderProps) {
             <Link href="/topup">Top Up</Link>
           </div>
           <div className="flex  rounded-3xl hover:border-[2px] border-transparentpy-2 px-5 hover:bg-[#FFFFFF] font-sans text-base font-medium text-[#635dff]">
-            <Link href="/">Payments</Link>
+            <Link href="/payments">Payments</Link>
           </div>
         </div>
         <div className="flex p-[15px] justify-end">
