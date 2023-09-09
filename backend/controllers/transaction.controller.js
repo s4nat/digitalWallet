@@ -21,8 +21,8 @@ exports.createTransaction = async (req, res) => {
   }
   // Validate request
   if (
-    !req.body.from_id ||
-    !req.body.to_id ||
+    !req.body.from_email ||
+    !req.body.to_email ||
     !req.body.amount ||
     req.body.amount < 0
   ) {
@@ -31,19 +31,19 @@ exports.createTransaction = async (req, res) => {
     });
     return;
   }
-  const from_id = req.body.from_id;
-  const to_id = req.body.to_id;
+  const from_email = req.body.from_email;
+  const to_email = req.body.to_email;
   const amount = req.body.amount;
 
   // Check if Valid
   const userSender = await User.findOne({
-    where: { user_id: from_id },
+    where: { email: from_email },
   });
   const userReceiver = await User.findOne({
-    where: { user_id: to_id },
+    where: { email: to_email },
   });
 
-  if (!userReceiver || !userSender || from_id === to_id) {
+  if (!userReceiver || !userSender || from_email === to_email) {
     res.status(400).send({
       message: "User does not exist or User trying to send to himself!",
     });
@@ -55,11 +55,11 @@ exports.createTransaction = async (req, res) => {
   } else {
     const url = "http://localhost:8080/digiwallet/user/updatebalance";
     const dataSender = {
-      user_id: from_id,
+      email: from_email,
       amount: -amount,
     };
     const dataReceiver = {
-      user_id: to_id,
+      email: to_email,
       amount: amount,
     };
     const headers = {
@@ -69,13 +69,13 @@ exports.createTransaction = async (req, res) => {
       .post(url, dataSender, { headers })
       .then((response) => {
         console.log(
-          `POST request to update balance of user:${from_id} successful:`,
+          `POST request to update balance of user:${from_email} successful:`,
           response.data
         );
       })
       .catch((error) => {
         console.error(
-          `Error making POST request to update balance of user:${from_id} :`,
+          `Error making POST request to update balance of user:${from_email} :`,
           error
         );
         status_val = 0;
@@ -84,13 +84,13 @@ exports.createTransaction = async (req, res) => {
       .post(url, dataReceiver, { headers })
       .then((response) => {
         console.log(
-          `POST request to update balance of user:${to_id} successful:`,
+          `POST request to update balance of user:${to_email} successful:`,
           response.data
         );
       })
       .catch((error) => {
         console.error(
-          `Error making POST request to update balance of user:${to_id} :`,
+          `Error making POST request to update balance of user:${to_email} :`,
           error
         );
         status_val = 0;
@@ -98,10 +98,10 @@ exports.createTransaction = async (req, res) => {
   }
   // Create a Transaction
   const new_transaction = {
-    to_id: to_id,
-    from_id: from_id,
-    from_name: userSender.firstName,
-    to_name: userReceiver.firstName,
+    to_email: to_email,
+    from_email: from_email,
+    from_name: userSender.name,
+    to_name: userReceiver.name,
     amount: amount,
     status: status_val,
   };
@@ -138,14 +138,14 @@ exports.findAll = async (req, res) => {
     });
     return;
   }
-  if (!req.body.user_id) {
+  if (!req.query.email) {
     res.status(400).send({
-      message: "No user ID!",
+      message: "No email!",
     });
     return;
   }
   const user = await User.findOne({
-    where: { user_id: req.body.user_id },
+    where: { email: req.query.email },
   });
   if (!user) {
     res.status(400).send({
@@ -159,13 +159,13 @@ exports.findAll = async (req, res) => {
       where: {
         [Op.or]: [
           {
-            to_id: {
-              [Op.eq]: req.body.user_id,
+            to_email: {
+              [Op.eq]: req.query.email,
             },
           },
           {
-            from_id: {
-              [Op.eq]: req.body.user_id,
+            from_email: {
+              [Op.eq]: req.query.email,
             },
           },
         ],
@@ -173,7 +173,7 @@ exports.findAll = async (req, res) => {
     });
     res
       .status(200)
-      .json({ message: "All Transactions", Transaction: transaction_history });
+      .json({ message: "All Transactions", Transaction: transaction_history, UserBalance: user.balance });
   } catch (error) {
     console.error("Error while finding Transaction:", error);
     res.status(500).json({ error: "Internal Server Error" });
@@ -187,12 +187,12 @@ exports.topupTransaction = async (req, res) => {
     });
     return;
   }
-  if (!req.query.user_id || !req.query.amount) {
+  if (!req.query.email || !req.query.amount) {
     res.status(400).send({
       message: "Invalid/Missing request object",
     });
   }
-  const user = await User.findOne({ where: { user_id: req.query.user_id } });
+  const user = await User.findOne({ where: { email: req.query.email } });
   if (!user) {
     res.status(400).send({
       message: "User not found",
@@ -215,7 +215,7 @@ exports.topupTransaction = async (req, res) => {
       },
     ],
     mode: "payment",
-    success_url: `http://localhost:3000/sucess`,
+    success_url: `http://localhost:3000/success`,
     cancel_url: `http://localhost:3000/failure`,
   });
 
@@ -237,7 +237,7 @@ exports.stripeWebhook = async (req, res) => {
     if (user) {
       const url = "http://localhost:8080/digiwallet/user/updatebalance";
       const dataUser = {
-        user_id: user.user_id,
+        email: user.email,
         amount: data.object.amount_total / 100,
       };
       const headers = {
@@ -247,23 +247,23 @@ exports.stripeWebhook = async (req, res) => {
         .post(url, dataUser, { headers })
         .then((response) => {
           console.log(
-            `POST request to update balance of user:${user.user_id} successful:`,
+            `POST request to update balance of user:${user.email} successful:`,
             response.data
           );
         })
         .catch((error) => {
           console.error(
-            `Error making POST request to update balance of user:${user.user_id} :`,
+            `Error making POST request to update balance of user:${user.email} :`,
             error
           );
           status_val = 0;
         });
       // Create a Transaction
       const new_transaction = {
-        to_id: user.user_id,
-        from_id: 0,
+        to_email: user.email,
+        from_email: 0,
         from_name: "Stripe",
-        to_name: user.firstName,
+        to_name: user.name,
         amount: data.object.amount_total / 100,
         status: 1,
       };

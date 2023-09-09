@@ -10,8 +10,8 @@ module.exports = (sequelize, Sequelize) => {
         primaryKey: true,
         autoIncrement: true,
       },
-      from_id: {
-        type: Sequelize.INTEGER,
+      from_email: {
+        type: Sequelize.STRING,
         allowNull: false,
       },
       from_name: {
@@ -36,8 +36,8 @@ module.exports = (sequelize, Sequelize) => {
           return null;
         },
       },
-      to_id: {
-        type: Sequelize.INTEGER,
+      to_email: {
+        type: Sequelize.STRING,
         allowNull: false,
       },
       to_name: {
