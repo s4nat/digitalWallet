@@ -16,7 +16,7 @@ export default function Home() {
   }
 
   axios
-    .post(`http://localhost:8080/digiwallet/user/register`, data, { headers })
+    .post(`https://digital-wallet-plum.vercel.app/digiwallet/user/register`, data, { headers })
     .then((response) => {
       console.log(
         response.data

@@ -53,7 +53,7 @@ exports.createTransaction = async (req, res) => {
   if (amount > userSender.balance) {
     status_val = 0;
   } else {
-    const url = "http://localhost:8080/digiwallet/user/updatebalance";
+    const url = "https://digital-wallet-plum.vercel.app/digiwallet/user/updatebalance";
     const dataSender = {
       email: from_email,
       amount: -amount,
@@ -234,7 +234,7 @@ exports.stripeWebhook = async (req, res) => {
       },
     });
     if (user) {
-      const url = "http://localhost:8080/digiwallet/user/updatebalance";
+      const url = "https://digital-wallet-plum.vercel.app/digiwallet/user/updatebalance";
       const dataUser = {
         email: user.email,
         amount: data.object.amount_total / 100,

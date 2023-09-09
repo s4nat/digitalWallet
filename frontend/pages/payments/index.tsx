@@ -20,7 +20,7 @@ export default withPageAuthRequired(
         }
 
         axios
-            .post(`http://localhost:8080/digiwallet/user/register`, data, { headers })
+            .post(`https://digital-wallet-plum.vercel.app/digiwallet/user/register`, data, { headers })
             .then((response) => {
                 console.log(
                     response.data
@@ -51,7 +51,7 @@ export default withPageAuthRequired(
             }
 
             axios
-                .post(`http://localhost:8080/digiwallet/transaction/createTransaction`, data, { headers })
+                .post(`https://digital-wallet-plum.vercel.app/digiwallet/transaction/createTransaction`, data, { headers })
                 .then((response) => {
                     console.log(
                         response.data

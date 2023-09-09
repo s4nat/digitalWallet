@@ -18,7 +18,7 @@ export default withPageAuthRequired(
         }
 
         axios
-            .post(`http://localhost:8080/digiwallet/user/register`, data, { headers })
+            .post(`https://digital-wallet-plum.vercel.app/digiwallet/user/register`, data, { headers })
             .then((response) => {
                 console.log(
                     response.data
@@ -42,7 +42,7 @@ export default withPageAuthRequired(
             console.log(formValue.topup);
 
             axios
-                .get(`http://localhost:8080/digiwallet/transaction/stripe/topup?email=${user?.email}&amount=${formValue.topup}`, { headers })
+                .get(`https://digital-wallet-plum.vercel.app/digiwallet/transaction/stripe/topup?email=${user?.email}&amount=${formValue.topup}`, { headers })
                 .then(async function (response) {
                     if (response.statusText === "OK") {
                         //const body = await response.json()
