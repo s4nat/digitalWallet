@@ -5,7 +5,7 @@ import { useUser, withPageAuthRequired } from '@auth0/nextjs-auth0/client';
 import Navbar from '../components/Navbar';
 import Link from 'next/link';
 import axios from 'axios';
-import { redirect } from 'next/navigation';
+import redirect from 'nextjs-redirect'
 
 export default withPageAuthRequired(
     function Topup() {
@@ -48,7 +48,9 @@ export default withPageAuthRequired(
                     if (response.statusText === "OK") {
                         //const body = await response.json()
                         // window.location.href = response.data.url; // vercel not redirecting
+                        console.log("Attempting to redirect to "+ response.data.url)
                         redirect(response.data.url);
+
                         //console.log("success", "Booking Sucessful!");
                         //navigate("/");
                     }
