@@ -15,6 +15,10 @@ ByteWallet is a comprehensive digital wallet solution that combines the simplici
 
 ## Demo
 
+Click on the image to view the youtube video
+
+<img src="/images/homepage.png" href = "https://youtu.be/_EPx_RmUp8o" title = "Bytewallet Demo Video" width="50%" height="50%">
+
 ## How we built it:
 
 <img src="/images/transaction_flowchart.jpg">
