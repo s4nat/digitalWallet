@@ -45,8 +45,7 @@ export default withPageAuthRequired(
             axios
                 .get(`https://digital-wallet-plum.vercel.app/digiwallet/transaction/stripe/topup?email=${user?.email}&amount=${formValue.topup}`, { headers })
                 .then( function (response) {
-                    if (response.statusText === "OK") {
-                        //const body = await response.json()
+                    if (response.status === 200) {
                         console.log("Attempting to redirect to " + response.data.url)
                         window.location.href = response.data.url; // vercel not redirecting
                         
