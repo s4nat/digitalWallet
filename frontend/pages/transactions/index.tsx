@@ -1,4 +1,6 @@
 import { useUser, withPageAuthRequired, } from "@auth0/nextjs-auth0/client";
+import React from "react";
+import axios from "axios";
 import Link from "next/link";
 import { FaCookieBite } from "react-icons/fa";
 import Navbar from "../components/Navbar"; 
@@ -6,40 +8,31 @@ import { BiSolidCookie } from "react-icons/bi";
 
 interface Transaction {
   date: string;
-  fromName: string;
-  toName: string;
+  from_name: string;
+  to_name: string;
   amount: number;
   status: number;
 }
 
-const transactions: Transaction[] = [
-  {
-    date: "2023-09-10",
-    fromName: "John Doe",
-    toName: "Jane Doe",
-    amount: 1000,
-    status: 1,
-  },
-  {
-    date: "2023-09-11",
-    fromName: "Jane Doe",
-    toName: "John Doe",
-    amount: 500,
-    status: 0,
-  },
-  {
-    date: "2023-09-12",
-    fromName: "John Doe",
-    toName: "Peter Parker",
-    amount: 200,
-    status: 1,
-  },
-];
 
-
+const TRANSACTIONS_URL = process.env.SERVER_BASE_URL + "/digiwallet/transactions/";
 export default withPageAuthRequired(
  function Transactions() {
-  const {user, isLoading} = useUser();
+    const { user, isLoading } = useUser();
+    const [transactions, setTransactions] = React.useState([]);
+    const checkStatus = (status: number) => {
+      if (status == 0) return "Failure";
+      else return "Success";
+    };
+    React.useEffect(() => {
+      axios({
+        method: "GET",
+        url: TRANSACTIONS_URL + "1",
+        headers: {"Authorization":process.env.API_KEY}
+      }).then((response) => {
+        setTransactions(response.data.Transaction)
+      })
+    })
   
   return (
     <main className="h-screen flex-col flex bg-[#000000] gap-y-1 font-sans">
@@ -63,34 +56,25 @@ export default withPageAuthRequired(
           <div>Amount</div>
           <div>Status</div>
         </div>
-      </div>
 
-        {transactions.map((transaction: Transaction, index: number) => (
-          
-          <div
-            key={index}
-            className="flex justify-center"
-          >
-            <div className={`pt-10 w-3/4 flex h-[60px] bg-[#000000] justify-between text-white px-10 pt-5 border-1 rounded-xl`}>
-            <div>{transaction.date}</div>
-            <div>{transaction.fromName}</div>
-            <div>{transaction.toName}</div>
-            <div>{transaction.amount}</div>
-            <div>
-              {transaction.status === 1 ? (
-                <span className="text-green-500 px-2 rounded-lg">Success</span>
-              ) : transaction.status === 0 ? (
-                <span className="text-red-500 px-2 rounded-lg">Failure</span>
-              ) : (
-                transaction.status
-              )}
+          {transactions.map((transaction: Transaction, index: number) => (
+            
+            <div
+              key={index}
+              className="flex justify-center"
+            >
+              <div className={`pt-10 w-3/4 flex h-[60px] bg-[#000000] justify-between text-white px-10 pt-5 border-1 rounded-xl`}>
+              <div>{transaction.date}</div>
+              <div>{transaction.from_name}</div>
+              <div>{transaction.to_name}</div>
+              <div>{transaction.amount}</div>
+              <div>{checkStatus(transaction.status)}</div>
             </div>
-          </div>
-          </div>
-        ))}
-        ;
+            </div>
+          ))}
+          );
 
-    </main>
-  );
+      </main>
+    );
 }
 )
