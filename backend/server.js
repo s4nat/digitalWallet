@@ -6,10 +6,19 @@ const db = require("./models");
 const app = express();
 
 var corsOptions = {
-  origin: "http://localhost:8081",
+  origin: "http://localhost:3000",
 };
 
 app.use(cors(corsOptions));
+
+app.use((req, res, next) => {
+  res.setHeader("Access-Control-Allow-Origin", "*");
+  res.header(
+    "Access-Control-Allow-Headers",
+    "Origin, X-Requested-With, Content-Type, Accept"
+  );
+  next();
+});
 
 // parse requests of content-type - application/json
 app.use(express.json());
@@ -31,7 +40,7 @@ try {
 
 //Syncing the database
 db.sequelize
-  .sync({ force: true })
+  .sync()
   .then(() => {
     console.log("Synced successfully");
   })
