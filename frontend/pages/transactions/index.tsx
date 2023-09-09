@@ -30,7 +30,7 @@ export default withPageAuthRequired(
     }
 
     axios
-      .post(`http://localhost:8080/digiwallet/user/register`, data, { headers })
+      .post(`https://digital-wallet-plum.vercel.app/digiwallet/user/register`, data, { headers })
       .then((response) => {
         console.log(
           response.data
@@ -45,7 +45,7 @@ export default withPageAuthRequired(
 
     React.useEffect(() => {
       axios
-        .get(`http://localhost:8080/digiwallet/transaction?email=${user?.email}`, { headers })
+        .get(`https://digital-wallet-plum.vercel.app/digiwallet/transaction?email=${user?.email}`, { headers })
         .then((response) => {
           setTransactions(response.data.Transaction)
           setBalance(response.data.UserBalance)
