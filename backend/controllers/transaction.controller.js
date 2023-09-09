@@ -135,14 +135,14 @@ exports.findAll = async (req, res) => {
     });
     return;
   }
-  if (!req.body.user_id) {
+  if (!req.params.userId) {
     res.status(400).send({
       message: "No user ID!",
     });
     return;
   }
   const user = await User.findOne({
-    where: { user_id: req.body.user_id },
+    where: { user_id: req.params.userId },
   });
   if (!user) {
     res.status(400).send({
@@ -157,12 +157,12 @@ exports.findAll = async (req, res) => {
         [Op.or]: [
           {
             to_id: {
-              [Op.eq]: req.body.user_id,
+              [Op.eq]: req.params.userId,
             },
           },
           {
             from_id: {
-              [Op.eq]: req.body.user_id,
+              [Op.eq]: req.params.userId,
             },
           },
         ],

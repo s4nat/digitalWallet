@@ -3,8 +3,7 @@ module.exports = (app) => {
 
   var router = require("express").Router();
 
-  // Create a new Tutorial
   router.post("/createTransaction", transaction.createTransaction);
-  router.get("/", transaction.findAll);
+  router.get("/:userId", transaction.findAll);
   app.use("/digiwallet/transaction", router);
 };

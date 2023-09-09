@@ -3,7 +3,6 @@ module.exports = (app) => {
 
   var router = require("express").Router();
 
-  // Create a new Tutorial
   router.post("/register", user.createUser);
   router.get("/find", user.findUserByCondition);
   router.delete("/delete", user.deleteUser);

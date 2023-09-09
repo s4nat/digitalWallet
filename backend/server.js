@@ -6,7 +6,7 @@ const db = require("./models");
 const app = express();
 
 var corsOptions = {
-  origin: "http://localhost:8081",
+  origin: "http://localhost:3000",
 };
 
 app.use(cors(corsOptions));
@@ -31,7 +31,7 @@ try {
 
 //Syncing the database
 db.sequelize
-  .sync({ force: true })
+  .sync()
   .then(() => {
     console.log("Synced successfully");
   })
