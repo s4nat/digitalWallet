@@ -1,16 +1,17 @@
 import React from 'react';
 import * as Form from '@radix-ui/react-form';
 import {BiSolidCookie} from 'react-icons/bi'
-import { useUser } from '@auth0/nextjs-auth0/client';
+import { useUser, withPageAuthRequired } from '@auth0/nextjs-auth0/client';
 import Navbar from '../components/Navbar';
+import Link from 'next/link';
 
-export default function Topup(){
+export default withPageAuthRequired(
+    function Topup(){
     const {user, isLoading} = useUser();
     return(
         <main className="min-h-screen flex-col bg-black gap-y-1">
             <Navbar user={user} loading={isLoading}/>
-            <div className="flex p-20">
-            {/* <div className= "bg-[#1e212a] flex items-center justify-center h-screen"> */}
+            {user&&(<div className="flex p-20">
                 <div className='w-1/2 p-5'>
                     <div>
                         <BiSolidCookie className="w-[100px] h-[70px] text-[#635dff]"/>
@@ -56,8 +57,47 @@ export default function Topup(){
                 </div>
                 </div>
                 
+            </div>)}
+            {
+                !user&&!isLoading&&(
+            <div className='flex justify-center pt-[20%]'>
+            <div className="flex flex-col justify-center items-center">
+            <div className="mx-auto flex items-center justify-center h-12 w-12 rounded-full bg-red-100">
+                <svg
+                    className="h-6 w-6 text-red-600"
+                    stroke="currentColor"
+                    fill="none"
+                    viewBox="0 0 24 24"
+                >
+                <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    strokeWidth="2"
+                    d="M6 18L18 6M6 6l12 12"
+                    />
+                </svg>
             </div>
+            <div className="mt-3 text-center sm:mt-5">
+                <h3
+                className="text-lg leading-6 font-medium text-white"
+                id="modal-headline"
+                >
+                You must sign in to access this page.
+                </h3>
+                {/* Display redirecting message to the user */}
+                <div className="mt-6 text-center sm:mt-5">
+                    <div className="w-full flex justify-center border-[2px] rounded-3xl border-[#F6D1CC] py-2 hover:bg-[#635dff] font-sans text-base font-medium text-[#ffffff]"> 
+                        <Link href="/api/auth/login">
+                            Sign In
+                        </Link>
+                    </div>
+                </div>
+            </div>
+            </div>
+            </div>
+                )
+            }
         </main>
     )
-};
+});
 

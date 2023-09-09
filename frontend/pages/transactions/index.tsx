@@ -1,7 +1,7 @@
-import { useUser } from "@auth0/nextjs-auth0/client";
+import { useUser, withPageAuthRequired, } from "@auth0/nextjs-auth0/client";
 import Link from "next/link";
 import { FaCookieBite } from "react-icons/fa";
-import Navbar from "../components/Navbar";
+import Navbar from "../components/Navbar"; 
 
 interface Transaction {
   date: string;
@@ -35,12 +35,16 @@ const transactions: Transaction[] = [
   },
 ];
 
-export default function Transactions() {
+
+export default withPageAuthRequired(
+ function Transactions() {
   const {user, isLoading} = useUser();
+  
   return (
     <main className="h-screen flex-col flex bg-[#000000] gap-y-1 font-sans">
       <Navbar user={user} loading={isLoading}/>
-      <div className="pt-10 flex justify-center">
+      
+      user&&(<div className="pt-10 flex justify-center">
         <div className="w-3/4 flex h-[60px] justify-between text-[#635dff] font-bold px-10 pt-5 rounded-xl" style={{ backgroundColor: "rgba(255, 255, 255, 0.2)" }}>
           <div>Date</div>
           <div>From</div>
@@ -49,8 +53,7 @@ export default function Transactions() {
           <div>Status</div>
         </div>
       </div>
-      
-      
+
         {transactions.map((transaction: Transaction, index: number) => (
           
           <div
@@ -74,7 +77,9 @@ export default function Transactions() {
           </div>
           </div>
         ))}
-      
+        );
+
     </main>
   );
 }
+)
