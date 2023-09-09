@@ -1,3 +1,6 @@
+require("dotenv").config();
+const CryptoJS = require("crypto-js");
+
 module.exports = (sequelize, Sequelize) => {
   const Transaction = sequelize.define(
     "transactions",
@@ -14,6 +17,24 @@ module.exports = (sequelize, Sequelize) => {
       from_name: {
         type: Sequelize.STRING,
         allowNull: false,
+        set(value) {
+          const encryptedfromName = CryptoJS.AES.encrypt(
+            value,
+            process.env.ENCRYPTION_KEY
+          ).toString();
+          this.setDataValue("from_name", encryptedfromName);
+        },
+        get() {
+          const encryptedfromName = this.getDataValue("from_name");
+          if (encryptedfromName) {
+            const decryptedfromName = CryptoJS.AES.decrypt(
+              encryptedfromName,
+              process.env.ENCRYPTION_KEY
+            ).toString(CryptoJS.enc.Utf8);
+            return decryptedfromName;
+          }
+          return null;
+        },
       },
       to_id: {
         type: Sequelize.INTEGER,
@@ -22,6 +43,24 @@ module.exports = (sequelize, Sequelize) => {
       to_name: {
         type: Sequelize.STRING,
         allowNull: false,
+        set(value) {
+          const encryptedtoName = CryptoJS.AES.encrypt(
+            value,
+            process.env.ENCRYPTION_KEY
+          ).toString();
+          this.setDataValue("to_name", encryptedtoName);
+        },
+        get() {
+          const encryptedtoName = this.getDataValue("to_name");
+          if (encryptedtoName) {
+            const decryptedtoName = CryptoJS.AES.decrypt(
+              encryptedtoName,
+              process.env.ENCRYPTION_KEY
+            ).toString(CryptoJS.enc.Utf8);
+            return decryptedtoName;
+          }
+          return null;
+        },
       },
       amount: {
         type: Sequelize.FLOAT,

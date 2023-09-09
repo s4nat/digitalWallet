@@ -92,7 +92,6 @@ exports.createTransaction = async (req, res) => {
         status_val = 0;
       });
   }
-
   // Create a Transaction
   const new_transaction = {
     to_id: to_id,

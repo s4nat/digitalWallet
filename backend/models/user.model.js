@@ -1,6 +1,6 @@
+require("dotenv").config();
 const crypto = require("crypto");
 const CryptoJS = require("crypto-js");
-const secretKey = "firstandlastnameencryption";
 
 module.exports = (sequelize, Sequelize) => {
   const User = sequelize.define(
@@ -18,7 +18,7 @@ module.exports = (sequelize, Sequelize) => {
         set(value) {
           const encryptedFirstName = CryptoJS.AES.encrypt(
             value,
-            secretKey
+            process.env.ENCRYPTION_KEY
           ).toString();
           this.setDataValue("firstName", encryptedFirstName);
         },
@@ -27,7 +27,7 @@ module.exports = (sequelize, Sequelize) => {
           if (encryptedFirstName) {
             const decryptedFirstName = CryptoJS.AES.decrypt(
               encryptedFirstName,
-              secretKey
+              process.env.ENCRYPTION_KEY
             ).toString(CryptoJS.enc.Utf8);
             return decryptedFirstName;
           }
@@ -39,7 +39,7 @@ module.exports = (sequelize, Sequelize) => {
         set(value) {
           const encryptedLastName = CryptoJS.AES.encrypt(
             value,
-            secretKey
+            process.env.ENCRYPTION_KEY
           ).toString();
           this.setDataValue("lastName", encryptedLastName);
         },
@@ -48,7 +48,7 @@ module.exports = (sequelize, Sequelize) => {
           if (encryptedLastName) {
             const decryptedLastName = CryptoJS.AES.decrypt(
               encryptedLastName,
-              secretKey
+              process.env.ENCRYPTION_KEY
             ).toString(CryptoJS.enc.Utf8);
             return decryptedLastName;
           }
@@ -64,7 +64,6 @@ module.exports = (sequelize, Sequelize) => {
         unique: true,
         allowNull: false,
         set(value) {
-          // Hash the phone number using SHA-256
           const hashedPhone = crypto
             .createHash("sha256")
             .update(value)
@@ -76,7 +75,6 @@ module.exports = (sequelize, Sequelize) => {
         type: Sequelize.STRING,
         unique: true,
         set(value) {
-          // Hash the email address using SHA-256
           const hashedEmail = crypto
             .createHash("sha256")
             .update(value)

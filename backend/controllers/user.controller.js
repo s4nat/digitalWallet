@@ -155,24 +155,6 @@ exports.updateUserBalance = async (req, res) => {
         );
         return updatedRows;
       });
-      const url = `http://localhost:3000/api/webhooks/${user.user_id}`;
-      const data = {
-        user: user_id,
-        amount: amount,
-      };
-      const headers = {
-        Authorization: process.env.API_KEY,
-      };
-
-      axios
-        .post(url, data, { headers })
-        .then((response) => {
-          console.log("POST request successful:", response.data);
-        })
-        .catch((error) => {
-          console.error("Error making POST request:", error);
-          return;
-        });
       res
         .status(201)
         .json({ message: "User Balance Updated Successfully.", user: result });
