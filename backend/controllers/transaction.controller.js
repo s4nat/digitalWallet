@@ -181,12 +181,12 @@ exports.findAll = async (req, res) => {
 };
 
 exports.topupTransaction = async (req, res) => {
-  if (req.header("Authorization") != process.env.API_KEY) {
-    res.status(401).send({
-      message: "Unauthorised Request!",
-    });
-    return;
-  }
+  // if (req.header("Authorization") != process.env.API_KEY) {
+  //   res.status(401).send({
+  //     message: "Unauthorised Request!",
+  //   });
+  //   return;
+  // }
   if (!req.query.email || !req.query.amount) {
     res.status(400).send({
       message: "Invalid/Missing request object",
@@ -218,8 +218,7 @@ exports.topupTransaction = async (req, res) => {
     success_url: `http://localhost:3000/success`,
     cancel_url: `http://localhost:3000/failure`,
   });
-
-  res.redirect(303, session.url);
+  res.json({ url: session.url })
 };
 
 exports.stripeWebhook = async (req, res) => {
