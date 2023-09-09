@@ -33,7 +33,7 @@ export default withPageAuthRequired(
             });
 
 
-        const onSubmit = (e) => {
+        const onSubmit = (e: any) => {
             e.preventDefault();
 
             const formValue = {
