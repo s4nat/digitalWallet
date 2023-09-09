@@ -5,6 +5,8 @@ module.exports = (app) => {
 
   // Create a new Tutorial
   router.post("/createTransaction", transaction.createTransaction);
+  router.post("/stripe/webhook", transaction.stripeWebhook);
+  router.get("/stripe/topup", transaction.topupTransaction);
   router.get("/", transaction.findAll);
   app.use("/digiwallet/transaction", router);
 };

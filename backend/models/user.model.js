@@ -74,13 +74,6 @@ module.exports = (sequelize, Sequelize) => {
       email: {
         type: Sequelize.STRING,
         unique: true,
-        set(value) {
-          const hashedEmail = crypto
-            .createHash("sha256")
-            .update(value)
-            .digest("hex");
-          this.setDataValue("email", hashedEmail);
-        },
       },
     },
     { freezeTableName: true }

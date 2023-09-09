@@ -41,10 +41,7 @@ exports.createUser = async (req, res) => {
         },
         {
           email: {
-            [Op.eq]: crypto
-              .createHash("sha256")
-              .update(req.body.email)
-              .digest("hex"),
+            [Op.eq]: req.body.email,
           },
         },
       ],
@@ -111,7 +108,7 @@ exports.findUserByCondition = async (req, res) => {
           },
           {
             email: {
-              [Op.eq]: crypto.createHash("sha256").update(email).digest("hex"),
+              [Op.eq]: email,
             },
           },
         ],
