@@ -1,4 +1,4 @@
-<img src="/images/bytewallet_logo.png">
+<img src="/images/homepage.png">
 
 # ByteWallet
 
