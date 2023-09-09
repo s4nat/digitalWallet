@@ -4,12 +4,12 @@
 
 ByteWallet is a comprehensive digital wallet solution that combines the simplicity of Next.js for frontend development, robust authentication mechanisms for security, Node.js Express for backend functionality, and Stripe for easy and secure top-ups. Here's what ByteWallet can do:
 
-1. **User Registration and Authentication**: ByteWallet allows users to register securely and authenticate themselves. We take user security seriously, and our authentication system ensures that their digital assets are safe.
+1. **User Registration and Authentication**: ByteWallet allows users to register securely and authenticate themselves. We take user security seriously, and our authentication system ensures that their money is safe.
 
 2. **Top-Up with Stripe**: Users can top up their ByteWallet accounts seamlessly using Stripe, one of the most trusted payment gateways. This feature provides a quick and reliable way for users to add funds to their wallets.
 
-3. **Peer-to-Peer Transactions**: ByteWallet enables users to send money to and receive money from each other. Whether it's splitting bills, sharing funds, or paying for services, ByteWallet makes it easy to transfer money securely and efficiently.
-
+3. **Peer-to-Peer Transactions**: ByteWallet enables users to send money to and receive money from each other.
+   
 4. **Transaction History**: The platform includes a transaction history page where users can view all their past transactions. This feature offers transparency and helps users keep track of their financial activities.
 
 
