@@ -219,30 +219,17 @@ exports.topupTransaction = async (req, res) => {
     success_url: `https://digital-wallet-frontend-six.vercel.app/success`,
     cancel_url: `https://digital-wallet-frontend-six.vercel.app/failure`,
   });
-  const url =
-        "https://digital-wallet-plum.vercel.app/digiwallet/user/updatebalance";
-      const dataUser = {
-        email: user.email,
-        amount: parseInt(req.query.amount),
-      };
-      const headers = {
-        Authorization: process.env.API_KEY,
-      };
-      axios
-        .post(url, dataUser, { headers })
-        .then((response) => {
-          console.log(
-            `POST request to update balance of user:${user.email} successful:`,
-            response.data
-          );
-        })
-        .catch((error) => {
-          console.error(
-            `Error making POST request to update balance of user:${user.email} :`,
-            error
-          );
-          status_val = 0;
-        });
+  try {
+    const result = await sequelize.transaction(async (t) => {
+      const updatedRows = await user.update(
+        { balance: user.balance + parseInt(req.query.amount) },
+        { transaction: t }
+      );
+      return updatedRows;
+    });
+  } catch (error) {
+    console.log(error);
+  }
       // Create a Transaction
       const new_transaction = {
         to_email: user.email,
