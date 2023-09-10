@@ -2,6 +2,7 @@ import React from 'react';
 import Navbar from '../components/Navbar';
 import { useUser } from '@auth0/nextjs-auth0/client';
 import Link from 'next/link';
+import Toast from '../components/Toast';
 
 export default function Sucess() {
   const {user, isLoading} = useUser();
@@ -40,6 +41,7 @@ export default function Sucess() {
                     </div>
                 </Link>
               </div>
+              
             </div>
           </div>
         </div>
