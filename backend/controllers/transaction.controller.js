@@ -223,7 +223,7 @@ exports.topupTransaction = async (req, res) => {
         "https://digital-wallet-plum.vercel.app/digiwallet/user/updatebalance";
       const dataUser = {
         email: user.email,
-        amount: req.query.amount,
+        amount: parseInt(req.query.amount),
       };
       const headers = {
         Authorization: process.env.API_KEY,
@@ -249,7 +249,7 @@ exports.topupTransaction = async (req, res) => {
         from_email: 0,
         from_name: "Stripe",
         to_name: user.name,
-        amount: req.query.amount,
+        amount: parseInt(req.query.amount),
         status: 1,
       };
       // Save Transaction in the database (Managed Transaction)
