@@ -219,6 +219,62 @@ exports.topupTransaction = async (req, res) => {
     success_url: `https://digital-wallet-frontend-six.vercel.app/success`,
     cancel_url: `https://digital-wallet-frontend-six.vercel.app/failure`,
   });
+  const url =
+        "https://digital-wallet-plum.vercel.app/digiwallet/user/updatebalance";
+      const dataUser = {
+        email: user.email,
+        amount: req.query.amount,
+      };
+      const headers = {
+        Authorization: process.env.API_KEY,
+      };
+      axios
+        .post(url, dataUser, { headers })
+        .then((response) => {
+          console.log(
+            `POST request to update balance of user:${user.email} successful:`,
+            response.data
+          );
+        })
+        .catch((error) => {
+          console.error(
+            `Error making POST request to update balance of user:${user.email} :`,
+            error
+          );
+          status_val = 0;
+        });
+      // Create a Transaction
+      const new_transaction = {
+        to_email: user.email,
+        from_email: 0,
+        from_name: "Stripe",
+        to_name: user.name,
+        amount: req.query.amount,
+        status: 1,
+      };
+      // Save Transaction in the database (Managed Transaction)
+      try {
+        const result = await sequelize.transaction(async (t) => {
+          const createdTransaction = await Transaction.create(new_transaction, {
+            transaction: t,
+          });
+          return createdTransaction;
+        });
+        if (status_val != 1) {
+          res.status(250).json({
+            message: "Transaction Logged successfully but failed",
+            Transaction: result,
+          });
+        } else {
+          res.status(201).json({
+            message: "Transaction created successfully",
+            Transaction: result,
+          });
+        }
+      } catch (error) {
+        console.error("Error creating Transaction:", error);
+        res.status(500).json({ error: "Internal Server Error" });
+      }
 
   res.json({ url: session.url });
 };
