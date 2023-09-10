@@ -2,6 +2,11 @@ const express = require("express");
 const bodyParser = require("body-parser");
 const cors = require("cors");
 const db = require("./models");
+const Transaction = db.Transaction;
+const User = db.User;
+const sequelize = db.sequelize;
+const axios = require("axios");
+const Op = db.Sequelize.Op;
 const stripe = require("stripe")(process.env.STRIPE_API_KEY);
 
 // This is your Stripe CLI webhook secret for testing your endpoint locally.
@@ -36,31 +41,105 @@ app.get("/", (req, res) => {
 app.post(
   "/webhook",
   express.raw({ type: "application/json" }),
-  (request, response) => {
-    const sig = request.headers["stripe-signature"];
-
-    let event;
-
-    try {
-      event = stripe.webhooks.constructEvent(request.body, sig, endpointSecret);
-    } catch (err) {
-      response.status(400).send(`Webhook Error: ${err.message}`);
-      return;
+  async (request, response) => {
+    let event = request.body;
+    // Only verify the event if you have an endpoint secret defined.
+    // Otherwise use the basic event deserialized with JSON.parse
+    if (endpointSecret) {
+      // Get the signature sent by Stripe
+      const signature = request.headers["stripe-signature"];
+      try {
+        event = stripe.webhooks.constructEvent(
+          request.body,
+          signature,
+          endpointSecret
+        );
+      } catch (err) {
+        console.log(`⚠️  Webhook signature verification failed.`, err.message);
+        return response.sendStatus(400);
+      }
     }
 
     // Handle the event
     switch (event.type) {
       case "checkout.session.completed":
-        const checkoutSessionCompleted = event.data.object;
-        console.lo("STRIPE OBJECT:", checkoutSessionCompleted);
-
+        const checkoutsessionobject = event.data.object;
+        const user = await User.findOne({
+          where: {
+            email: checkoutsessionobject.customer_email,
+          },
+        });
+        if (user) {
+          const url =
+            "https://digital-wallet-plum.vercel.app/digiwallet/user/updatebalance";
+          const dataUser = {
+            email: user.email,
+            amount: checkoutsessionobject.amount_total / 100,
+          };
+          const headers = {
+            Authorization: process.env.API_KEY,
+          };
+          axios
+            .post(url, dataUser, { headers })
+            .then((response) => {
+              console.log(
+                `POST request to update balance of user:${user.email} successful:`,
+                response.data
+              );
+            })
+            .catch((error) => {
+              console.error(
+                `Error making POST request to update balance of user:${user.email} :`,
+                error
+              );
+              status_val = 0;
+            });
+          // Create a Transaction
+          const new_transaction = {
+            to_email: user.email,
+            from_email: 0,
+            from_name: "Stripe",
+            to_name: user.name,
+            amount: checkoutsessionobject.amount_total / 100,
+            status: 1,
+          };
+          // Save Transaction in the database (Managed Transaction)
+          try {
+            const result = await sequelize.transaction(async (t) => {
+              const createdTransaction = await Transaction.create(
+                new_transaction,
+                {
+                  transaction: t,
+                }
+              );
+              return createdTransaction;
+            });
+            if (status_val != 1) {
+              res.status(250).json({
+                message: "Transaction Logged successfully but failed",
+                Transaction: result,
+              });
+            } else {
+              res.status(201).json({
+                message: "Transaction created successfully",
+                Transaction: result,
+              });
+            }
+          } catch (error) {
+            console.error("Error creating Transaction:", error);
+            res.status(500).json({ error: "Internal Server Error" });
+          }
+        }
+        // Then define and call a method to handle the successful payment intent.
+        // handlePaymentIntentSucceeded(paymentIntent);
         break;
       default:
-        console.log(`Unhandled event type ${event.type}`);
+        // Unexpected event type
+        console.log(`Unhandled event type ${event.type}.`);
     }
 
     // Return a 200 response to acknowledge receipt of the event
-    response.send({ Data: event.data.object });
+    response.send();
   }
 );
 // Checking for connection
