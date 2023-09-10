@@ -12,6 +12,10 @@
         "dest": "server.js"
       },
       {
+        "src": "/webhook",
+        "dest": "server.js"
+      },
+      {
         "src": "/digiwallet/transaction/",
         "dest": "transaction.routes.js"
       },
