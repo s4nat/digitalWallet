@@ -31,7 +31,7 @@ exports.createTransaction = async (req, res) => {
   }
   const from_email = req.body.from_email;
   const to_email = req.body.to_email;
-  const amount = req.body.amount;
+  const amount = parseInt(req.body.amount);
 
   // Check if Valid
   const userSender = await User.findOne({
