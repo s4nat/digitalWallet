@@ -60,7 +60,7 @@ export default withPageAuthRequired(
     return (
       <main className="overflow-auto h-screen flex-col flex bg-[#000000] gap-y-1 font-sans">
         <Navbar user={user} loading={isLoading} />
-        <div className="overflow-auto flex justify-center p-5">
+        <div className=" flex justify-center p-5">
           <div className="flex font-sans text-[65px] font-medium text-[#635dff]">
             <BiSolidCookie className="w-[100px] h-[70px] text-[#635dff]" />
             ByteWallet
@@ -85,7 +85,7 @@ export default withPageAuthRequired(
 
           <div
             key={index}
-            className="overflow-auto flex justify-center"
+            className=" flex justify-center"
           >
             <div className={`pt-10 w-3/4 flex h-[60px] bg-[#000000] justify-between text-white px-10 pt-5 border-1 rounded-xl`}>
               <div>{transaction.createdAt.split("T")[0]}</div>
