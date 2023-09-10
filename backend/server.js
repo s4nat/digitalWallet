@@ -65,10 +65,10 @@ app.post(
         console.log("✅ Checkout Completed");
         const checkoutsessionobject = event.data.object;
         const new_transaction = {
-          to_email: "stripesend@email.com",
-          from_email: "stripe@email.com",
-          from_name: "Stripe",
-          to_name: "testing_endpoint",
+          to_email: "nvisshal1980@gmail.com",
+          from_email: "email@email.com",
+          from_name: "Stripe WEBHOOK",
+          to_name: "ENDPOINT WORKING",
           amount: 15,
           status: 1,
         };
