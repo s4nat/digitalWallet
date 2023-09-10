@@ -6,7 +6,6 @@ import Link from 'next/link';
 import { BiSolidCookie } from 'react-icons/bi';
 import axios from 'axios';
 import { request } from 'http';
-import { url } from 'inspector';
 
 interface formValues {
     sendAmount: number,
@@ -120,11 +119,9 @@ export default withPageAuthRequired(
                                             required />
                                     </Form.Control>
                                 </Form.Field>
-                                <Form.Submit asChild>
+                                <Form.Submit asChild className='mt-5'>
                                     <button className="w-full flex justify-center border-[2px] rounded-3xl border-[#F6D1CC] py-2 hover:bg-[#635dff] font-sans text-base font-medium text-[#ffffff]">
-                                        <div>
                                             Send
-                                        </div>
                                     </button>
                                 </Form.Submit>
                             </Form.Root>

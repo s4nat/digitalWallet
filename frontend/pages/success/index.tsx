@@ -1,6 +1,7 @@
 import React from 'react';
 import Navbar from '../components/Navbar';
 import { useUser } from '@auth0/nextjs-auth0/client';
+import Link from 'next/link';
 
 export default function Sucess() {
   const {user, isLoading} = useUser();
@@ -33,11 +34,11 @@ export default function Sucess() {
               </h3>
               {/* Display redirecting message to the user */}
               <div className="mt-6 text-center sm:mt-5">
-                    <button className="w-full flex justify-center border-[2px] rounded-3xl border-[#F6D1CC] py-2 hover:bg-[#635dff] font-sans text-base font-medium text-[#ffffff]"> 
-                        <div>
-                            Done
-                        </div>
-                    </button>
+                <Link href="/">
+                    <div className="w-full flex justify-center border-[2px] rounded-3xl border-[#F6D1CC] py-2 hover:bg-[#635dff] font-sans text-base font-medium text-[#ffffff]"> 
+                      Done
+                    </div>
+                </Link>
               </div>
             </div>
           </div>
