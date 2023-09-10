@@ -2,6 +2,11 @@ const express = require("express");
 const bodyParser = require("body-parser");
 const cors = require("cors");
 const db = require("./models");
+const stripe = require("stripe")(process.env.STRIPE_API_KEY);
+
+// This is your Stripe CLI webhook secret for testing your endpoint locally.
+const endpointSecret =
+  "whsec_6209399815c77e5e74990b1790847b67d3cc56c7f77c35bb7a35aa4fb46939ce";
 
 const app = express();
 
@@ -29,7 +34,36 @@ app.use(express.urlencoded({ extended: true }));
 app.get("/", (req, res) => {
   res.json({ message: "Welcome to Brown Munde Digital Wallet." });
 });
+app.post(
+  "/webhook",
+  express.raw({ type: "application/json" }),
+  (request, response) => {
+    const sig = request.headers["stripe-signature"];
 
+    let event;
+
+    try {
+      event = stripe.webhooks.constructEvent(request.body, sig, endpointSecret);
+    } catch (err) {
+      response.status(400).send(`Webhook Error: ${err.message}`);
+      return;
+    }
+
+    // Handle the event
+    switch (event.type) {
+      case "checkout.session.completed":
+        const checkoutSessionCompleted = event.data.object;
+        console.lo("STRIPE OBJECT:", checkoutSessionCompleted);
+
+        break;
+      default:
+        console.log(`Unhandled event type ${event.type}`);
+    }
+
+    // Return a 200 response to acknowledge receipt of the event
+    response.send({ Data: event.data.object });
+  }
+);
 // Checking for connection
 try {
   db.sequelize.authenticate();

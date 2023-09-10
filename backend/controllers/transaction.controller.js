@@ -8,8 +8,6 @@ const axios = require("axios");
 const Op = db.Sequelize.Op;
 const stripe = require("stripe")(process.env.STRIPE_API_KEY);
 const CryptoJS = require("crypto-js");
-const endpointSecret =
-  "whsec_6209399815c77e5e74990b1790847b67d3cc56c7f77c35bb7a35aa4fb46939ce";
 
 exports.createTransaction = async (req, res) => {
   // Authenticate Request
@@ -53,7 +51,8 @@ exports.createTransaction = async (req, res) => {
   if (amount > userSender.balance) {
     status_val = 0;
   } else {
-    const url = "https://digital-wallet-plum.vercel.app/digiwallet/user/updatebalance";
+    const url =
+      "https://digital-wallet-plum.vercel.app/digiwallet/user/updatebalance";
     const dataSender = {
       email: from_email,
       amount: -amount,
@@ -171,9 +170,11 @@ exports.findAll = async (req, res) => {
         ],
       },
     });
-    res
-      .status(200)
-      .json({ message: "All Transactions", Transaction: transaction_history, UserBalance: user.balance });
+    res.status(200).json({
+      message: "All Transactions",
+      Transaction: transaction_history,
+      UserBalance: user.balance,
+    });
   } catch (error) {
     console.error("Error while finding Transaction:", error);
     res.status(500).json({ error: "Internal Server Error" });
@@ -218,7 +219,7 @@ exports.topupTransaction = async (req, res) => {
     success_url: `https://digital-wallet-frontend-six.vercel.app/success`,
     cancel_url: `https://digital-wallet-frontend-six.vercel.app/failure`,
   });
-  res.json({ url: session.url })
+  res.json({ url: session.url });
 };
 
 exports.stripeWebhook = async (req, res) => {
@@ -234,7 +235,8 @@ exports.stripeWebhook = async (req, res) => {
       },
     });
     if (user) {
-      const url = "https://digital-wallet-plum.vercel.app/digiwallet/user/updatebalance";
+      const url =
+        "https://digital-wallet-plum.vercel.app/digiwallet/user/updatebalance";
       const dataUser = {
         email: user.email,
         amount: data.object.amount_total / 100,
