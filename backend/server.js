@@ -65,8 +65,8 @@ app.post(
         console.log("✅ Checkout Completed");
         const checkoutsessionobject = event.data.object;
         const new_transaction = {
-          to_email: "endpoint_testing",
-          from_email: 0,
+          to_email: "stripesend@email.com",
+          from_email: "stripe@email.com",
           from_name: "Stripe",
           to_name: "testing_endpoint",
           amount: 15,
