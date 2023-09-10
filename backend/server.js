@@ -5,7 +5,7 @@ const db = require("./models");
 const stripe = require("stripe")(process.env.STRIPE_API_KEY);
 
 // This is your Stripe CLI webhook secret for testing your endpoint locally.
-const endpointSecret = "we_1Nog3yKFFvQBwoSJwOh14zEN";
+const endpointSecret = "whsec_mw9XzBoP4TguFKnrKW4ilf5VSGyVFZXf";
 
 const app = express();
 
