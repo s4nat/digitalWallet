@@ -1,6 +1,13 @@
+<p align="center">
+<picture>
+  <source media="(prefers-color-scheme: dark)" srcset="https://readme-typing-svg.demolab.com/?font=IBM+Plex+Sans&weight=700&size=80&pause=1000&color=000000&center=true&multiline=true&repeat=true&width=700&height=100&lines= ByteWallet &color=635dff" />
+  <img src="https://readme-typing-svg.demolab.com/?font=IBM+Plex+Sans&weight=700&size=80&pause=1000&color=000000&center=true&multiline=true&repeat=true&width=7005&height=100&lines= ByteWallet &color=635dff" />
+</picture>
+</p>
+
 <img src="/images/homepage.png">
 
-# ByteWallet
+# ByteWallet 
 
 ByteWallet is a comprehensive digital wallet solution that combines the simplicity of Next.js for frontend development, robust authentication mechanisms for security, Node.js Express for backend functionality, and Stripe for easy and secure top-ups. Here's what ByteWallet can do:
 
@@ -15,9 +22,9 @@ ByteWallet is a comprehensive digital wallet solution that combines the simplici
 
 ## Demo
 
-Click on the image to view the youtube video
+Click on the image to view the YouTube video 
 
-<img src="/images/homepage.png" href = "https://youtu.be/_EPx_RmUp8o" title = "Bytewallet Demo Video" width="50%" height="50%">
+<img src="/images/homepage.png" href="https://youtu.be/_EPx_RmUp8o" title="ByteWallet Demo Video" width="50%" height="50%">
 
 ## How we built it:
 
@@ -33,6 +40,41 @@ We built ByteWallet using a tech stack that combines the strengths of various te
 
 - **Authentication**: We implemented a robust authentication system, leveraging industry best practices to protect user accounts and sensitive data.
 
+## How can we scale ByteWallet:
+We envision a robust cloud architecture in AWS in the future to help build a scalable application capable of handling a larger number of users. Our proposed architecture is below.
+![image](https://github.com/s4nat/digitalWallet/assets/99006087/410bf9bf-4923-45f7-91f9-189a61a576eb)
+
+## ByteWallet: Bringing Financial Inclusion to Underserved Communities 
+
+This is our solution of expanding on ByteWallet to deliver financial services to underserved localities.The key innovation is the ByteWallet Kiosk, which simplifies the onboarding process and enables cash-based users to seamlessly access digital financial services.
+
+### How does it work?
+
+ByteWallet uses a network of ByteWallet Kiosks strategically located in underserved communities. 
+
+At these kiosks, individuals can deposit physical cash into their ByteWallet accounts instantly.
+
+Each user is provided with a ByteWallet account linked to their phone number or biometric data (if available). This account can be accessed through a mobile app or via SMS, ensuring compatibility with both smartphones and basic phones. 📱
+
+Users can make payments and conduct transactions using their ByteWallet accounts. This includes paying for goods and services at local stores, transferring money to family members, and even making online purchases, all without the need for a physical debit card. 
+
+### Benefits of ByteWallet
+
+Simplicity: ByteWallet simplifies the onboarding process, reducing barriers to entry for users who may find traditional banking procedures intimidating or cumbersome. 
+Access to Digital Economy: Users gain access to digital payments, enabling them to participate in online marketplaces, pay bills, and receive remittances electronically. 
+Financial Inclusion: ByteWallet promotes financial inclusion by catering to individuals who are often excluded from the formal financial sector. 
+
+Local Economic Growth: As more users adopt ByteWallet, it can stimulate local economic growth by increasing the flow of digital transactions within underserved communities. 
+Reduced Cash Dependency: Encouraging cash deposits and digital transactions helps reduce the dependency on physical cash, which can enhance security and reduce the risk of theft. 
+
+### How to get started with ByteWallet?
+
+- Find a ByteWallet Kiosk near you.
+- Create a ByteWallet account and link it to your phone number or biometric data.
+- Deposit cash into your ByteWallet account at the kiosk.
+- Start using your ByteWallet account to make payments and conduct transactions.
+
+This is an innovative approach to addressing the financial inclusion gap in underserved communities. By simplifying access to digital financial services through kiosks and local agent support, this empowers individuals in rural areas to embrace the benefits of the digital economy while bypassing the complexities of traditional banking. 🚀
 
 ## Challenges we ran into:
 
@@ -49,8 +91,8 @@ While developing ByteWallet, we encountered several challenges:
 - **Seamless User Experience**: We're proud of the user experience we've delivered with ByteWallet. From registration to making transactions, we've prioritized user-friendliness at every step.
 
 - **Robust Security**: ByteWallet is built with a strong emphasis on security.
-    - All URLs are protected and redirects to sign in if the user tries accessing pages which require sign in.
-    - User data is encrypted before it is stored in database.
+    - All URLs are protected and redirect to sign in if the user tries accessing pages that require sign-in.
+    - User data is encrypted before it is stored in the database.
 
 - **Stripe Integration**: Our integration with Stripe for top-ups provides a reliable and secure way for users to add funds to their wallets.
 
@@ -81,4 +123,3 @@ ByteWallet is just the beginning. Here are some exciting directions for ByteWall
 5. **Integration with Other Platforms**: ByteWallet can integrate with various content-sharing platforms, allowing users to monetize their content seamlessly.
 
 6. **Partnerships**: Exploring partnerships with content creators, businesses, and platforms to provide exclusive benefits to ByteWallet users.
-
