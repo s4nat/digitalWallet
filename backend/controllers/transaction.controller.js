@@ -247,20 +247,8 @@ exports.topupTransaction = async (req, res) => {
           });
           return createdTransaction;
         });
-        if (status_val != 1) {
-          res.status(250).json({
-            message: "Transaction Logged successfully but failed",
-            Transaction: result,
-          });
-        } else {
-          res.status(201).json({
-            message: "Transaction created successfully",
-            Transaction: result,
-          });
-        }
       } catch (error) {
         console.error("Error creating Transaction:", error);
-        res.status(500).json({ error: "Internal Server Error" });
       }
 
   res.json({ url: session.url });
