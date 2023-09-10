@@ -60,11 +60,11 @@ Users can make payments and conduct transactions using their ByteWallet accounts
 
 ### Benefits of ByteWallet
 
-Simplicity: ByteWallet simplifies the onboarding process, reducing barriers to entry for users who may find traditional banking procedures intimidating or cumbersome. 
+**Simplicity**: ByteWallet simplifies the onboarding process, reducing barriers to entry for users who may find traditional banking procedures intimidating or cumbersome. 
 Access to Digital Economy: Users gain access to digital payments, enabling them to participate in online marketplaces, pay bills, and receive remittances electronically. 
 Financial Inclusion: ByteWallet promotes financial inclusion by catering to individuals who are often excluded from the formal financial sector. 
 
-Local Economic Growth: As more users adopt ByteWallet, it can stimulate local economic growth by increasing the flow of digital transactions within underserved communities. 
+**Local Economic Growth**: As more users adopt ByteWallet, it can stimulate local economic growth by increasing the flow of digital transactions within underserved communities. 
 Reduced Cash Dependency: Encouraging cash deposits and digital transactions helps reduce the dependency on physical cash, which can enhance security and reduce the risk of theft. 
 
 ### How to get started with ByteWallet?
