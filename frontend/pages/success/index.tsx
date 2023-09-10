@@ -2,10 +2,26 @@ import React from 'react';
 import Navbar from '../components/Navbar';
 import { useUser } from '@auth0/nextjs-auth0/client';
 import Link from 'next/link';
+import axios from 'axios';
 import Toast from '../components/Toast';
 
 export default function Sucess() {
   const {user, isLoading} = useUser();
+  const topupAmount = sessionStorage.getItem('topupAmount');
+  const headers = { Authorization: "changeme" }
+  axios
+                .get(`https://digital-wallet-plum.vercel.app/digiwallet/transaction/topupBalance?email=${user?.email}&amount=${topupAmount}`, { headers })
+                .then( function (response) {
+                    if (response.status === 200) {
+                        console.log("Successfuly updated")
+                    }
+                    console.log(response);
+                })
+                .catch((error) => {
+                    console.error(
+                        error
+                    );
+                });
     return (
       <main className="h-screen flex-col  flex bg-[#000000]">
         <Navbar user={user} loading={isLoading}/>
@@ -36,12 +52,12 @@ export default function Sucess() {
               {/* Display redirecting message to the user */}
               <div className="mt-6 text-center sm:mt-5">
                 <Link href="/">
-                    <div className="w-full flex justify-center border-[2px] rounded-3xl border-[#F6D1CC] py-2 hover:bg-[#635dff] font-sans text-base font-medium text-[#ffffff]"> 
+                    <div className="w-full flex justify-center border-[2px] rounded-3xl border-[#F6D1CC] py-2 hover:bg-[#635dff] font-sans text-base font-medium text-[#ffffff]">
                       Done
                     </div>
                 </Link>
               </div>
-              
+
             </div>
           </div>
         </div>

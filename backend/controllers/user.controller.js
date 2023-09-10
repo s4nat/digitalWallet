@@ -15,10 +15,7 @@ exports.createUser = async (req, res) => {
     return;
   }
   // Validate request
-  if (
-    !req.body.name ||
-    !req.body.email
-  ) {
+  if (!req.body.name || !req.body.email) {
     res.status(400).send({
       message: "All fields are required!",
     });
@@ -27,7 +24,7 @@ exports.createUser = async (req, res) => {
 
   const existingUser = await User.findAll({
     where: {
-      email: req.body.email
+      email: req.body.email,
     },
   });
   if (existingUser.length != 0) {
@@ -76,8 +73,8 @@ exports.findUserByCondition = async (req, res) => {
   try {
     const user = await User.findAll({
       where: {
-        email: req.query.email
-      }
+        email: req.query.email,
+      },
     });
     if (user.length === 0) {
       res.status(404).json({ message: "User not found", User: null });
