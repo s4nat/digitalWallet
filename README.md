@@ -1,7 +1,7 @@
 <p align="center">
 <picture>
-  <source media="(prefers-color-scheme: dark)" srcset="https://readme-typing-svg.demolab.com/?font=IBM+Plex+Sans&weight=700&size=80&pause=1000&color=000000&center=true&multiline=true&repeat=false&width=700&height=100&lines= ByteWallet &color=635dff" />
-  <img src="https://readme-typing-svg.demolab.com/?font=IBM+Plex+Sans&weight=700&size=80&pause=1000&color=000000&center=true&multiline=true&repeat=false&width=7005&height=100&lines= ByteWallet &color=635dff" />
+  <source media="(prefers-color-scheme: dark)" srcset="https://readme-typing-svg.demolab.com/?font=IBM+Plex+Sans&weight=700&size=80&pause=1000&color=000000&center=true&multiline=true&repeat=true&width=700&height=100&lines= ByteWallet &color=635dff" />
+  <img src="https://readme-typing-svg.demolab.com/?font=IBM+Plex+Sans&weight=700&size=80&pause=1000&color=000000&center=true&multiline=true&repeat=true&width=7005&height=100&lines= ByteWallet &color=635dff" />
 </picture>
 </p>
 
