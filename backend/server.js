@@ -15,7 +15,7 @@ const endpointSecret = "whsec_mw9XzBoP4TguFKnrKW4ilf5VSGyVFZXf";
 const app = express();
 
 var corsOptions = {
-  origin: "https://digital-wallet-frontend-six.vercel.app/",
+  origin: "https://digital-wallet-frontend-six.vercel.app",
 };
 
 app.use(cors(corsOptions));
