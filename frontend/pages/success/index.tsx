@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import Navbar from '../components/Navbar';
 import { useUser } from '@auth0/nextjs-auth0/client';
 import Link from 'next/link';
@@ -6,22 +6,27 @@ import axios from 'axios';
 import Toast from '../components/Toast';
 
 export default function Sucess() {
-  const {user, isLoading} = useUser();
-  const topupAmount = sessionStorage.getItem('topupAmount');
-  const headers = { Authorization: "changeme" }
-  axios
-                .get(`https://digital-wallet-plum.vercel.app/digiwallet/transaction/topupBalance?email=${user?.email}&amount=${topupAmount}`, { headers })
-                .then( function (response) {
-                    if (response.status === 200) {
-                        console.log("Successfuly updated")
-                    }
-                    console.log(response);
-                })
-                .catch((error) => {
-                    console.error(
-                        error
-                    );
-                });
+  const { user, isLoading } = useUser();
+  const topupAmount = sessionStorage.getItem('topupAmount'); // Access session storage value
+  const headers = { Authorization: "changeme" };
+
+  // Use useEffect to send the GET request when the component mounts
+  useEffect(() => {
+    if (user && topupAmount) {
+      axios
+        .get(`https://digital-wallet-plum.vercel.app/digiwallet/transaction/topupBalance?email=${user.email}&amount=${topupAmount}`, { headers })
+        .then(function (response) {
+          if (response.status === 200) {
+            console.log("Successfully updated");
+          }
+          console.log(response);
+        })
+        .catch((error) => {
+          console.error(error);
+        });
+    }
+  }, [user, topupAmount]); // Add user and topupAmount as dependencies
+
     return (
       <main className="h-screen flex-col  flex bg-[#000000]">
         <Navbar user={user} loading={isLoading}/>

@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect,useState } from 'react';
 import * as Form from '@radix-ui/react-form';
 import { BiSolidCookie } from 'react-icons/bi'
 import { useUser, withPageAuthRequired } from '@auth0/nextjs-auth0/client';
@@ -11,6 +11,7 @@ export default withPageAuthRequired(
     function Topup() {
         const { user, isLoading } = useUser();
         const [values, setValues] = useState({});
+        const [topupAmount, setTopupAmount] = useState(0);
         const headers = { Authorization: "changeme" }
 
         const data = {
@@ -38,10 +39,12 @@ export default withPageAuthRequired(
             const formValue = {
                 topup: e.target.topup_amount.value,
             };
-
             setValues(formValue);
-            console.log(formValue.topup);
-            sessionStorage.setItem('topupAmount', formValue.topup);
+
+            useEffect(() => {
+                setTopupAmount(formValue.topup);
+                sessionStorage.setItem('topupAmount', formValue.topup);
+            }, [formValue.topup]); // Only update when formValue.topup changes
 
             axios
                 .get(`https://digital-wallet-plum.vercel.app/digiwallet/transaction/stripe/topup?email=${user?.email}&amount=${formValue.topup}`, { headers })
